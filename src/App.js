@@ -3,11 +3,12 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div id="parent" className="App" onClickCapture={() => console.log('parent')}>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          React 29 group!!!
+          You are the very best! 👍
         </p>
         <a
           className="App-link"
@@ -17,6 +18,7 @@ function App() {
         >
           Learn React
         </a>
+        <button id="child" onClickCapture={() => console.log('child')}>Child</button>
       </header>
     </div>
   );
