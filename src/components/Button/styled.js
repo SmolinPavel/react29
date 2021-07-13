@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 const color = 'palevioletred';
 
-export const Button = styled.button`
+export const StyledButton = styled.button`
   background: transparent;
   border-radius: 3px;
   border: 2px solid ${color};
