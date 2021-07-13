@@ -2,6 +2,7 @@ import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Button } from 'components/Button';
+import { Counter } from 'components/Counter';
 
 const useStyles = makeStyles({
   root: {
@@ -15,7 +16,9 @@ const useStyles = makeStyles({
   },
 });
 
-export const ProductCard = ({ product }) => {
+// { 1: 0, 2: 0, ... }
+
+export const ProductCard = ({ basket, product, updateBasket }) => {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
@@ -24,12 +27,14 @@ export const ProductCard = ({ product }) => {
       <div>
         Price: <b>{product.price}$</b>
       </div>
-      <Button
-        like="💅💅💅"
-        action={() => alert('Clicked')}
-        primary
-        letterSpacing="9px"
+      <Counter
+        productId={product.id}
+        updateBasket={updateBasket}
+        value={basket[product.id]}
       />
+      <Button action={() => alert('Clicked')} primary letterSpacing="9px">
+        Buy
+      </Button>
     </Card>
   );
 };

@@ -1,9 +1,9 @@
 import { StyledButton } from './styled';
 
-export const Button = ({ like, action }) => {
+export const Button = ({ children, action }) => {
   return (
     <StyledButton onClick={action}>
-      <span>{like}</span>
+      <span>{children}</span>
     </StyledButton>
   );
 };
