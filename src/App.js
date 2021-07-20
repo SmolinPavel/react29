@@ -2,6 +2,7 @@ import { Component } from 'react';
 
 import { products } from 'api/products.json';
 import ProductList from 'components/ProductList';
+import { AuthForm } from 'components/AuthForm';
 
 const basket = {};
 products.forEach((product) => {
@@ -14,8 +15,8 @@ class App extends Component {
     basket,
   };
 
-  handleChange = (e) => {
-    this.setState({ search: e.target.value });
+  handleChange = (event) => {
+    this.setState({ search: event.target.value });
   };
 
   updateBasket = (productId, newValue) => {
@@ -25,9 +26,9 @@ class App extends Component {
 
   render() {
     const { search, basket } = this.state;
-    const filteredProducts = products.filter((product) =>
-      product.name.toLowerCase().includes(search.toLowerCase()),
-    );
+    const filteredProducts = products.filter((product) => {
+      return product.name.toLowerCase().includes(search.toLowerCase());
+    });
 
     const basketMessages = products
       .filter((product) => basket[product.id])
@@ -37,6 +38,8 @@ class App extends Component {
 
     return (
       <>
+        <AuthForm />
+        <hr />
         <div className="App">
           <div style={{ padding: '30px 10px 10px' }}>
             <input
