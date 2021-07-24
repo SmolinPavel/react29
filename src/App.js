@@ -2,7 +2,8 @@ import { Component } from 'react';
 
 import { products } from 'api/products.json';
 import ProductList from 'components/ProductList';
-import { AuthForm } from 'components/AuthForm';
+import { DeliveryList } from 'components/DeliveryList';
+// import { AuthForm } from 'components/AuthForm';
 
 const basket = {};
 products.forEach((product) => {
@@ -38,7 +39,8 @@ class App extends Component {
 
     return (
       <>
-        <AuthForm />
+        {/* <AuthForm /> */}
+        <DeliveryList />
         <hr />
         <div className="App">
           <div style={{ padding: '30px 10px 10px' }}>
