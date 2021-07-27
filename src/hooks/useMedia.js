@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 /* 
     Usage
     
-    const mobile = useMedia('(max-width: 56.25em)');
+    const wideScreen = useMedia('(min-width: 4000px)');
 */
 
 export function useMedia(query) {
@@ -11,13 +11,14 @@ export function useMedia(query) {
 
   // cDM, cDU
   useEffect(() => {
-    let media = window.matchMedia(query);
+    let media = window.matchMedia(query); // < 500px
     if (media.matches !== matches) {
       setMatches(media.matches);
     }
     let listener = () => setMatches(media.matches);
-    media.addListener(listener);
-    return () => media.removeListener(listener);
+    window.media.addListener(listener);
+
+    return () => window.media.removeListener(listener);
   }, [matches, query]);
 
   return matches;
