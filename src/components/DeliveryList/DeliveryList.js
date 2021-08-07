@@ -3,7 +3,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { fetchDeliveryTeam } from './api';
 
-export class DeliveryList extends Component {
+export default class DeliveryList extends Component {
   state = {
     deliveryTeam: [],
     error: null,
