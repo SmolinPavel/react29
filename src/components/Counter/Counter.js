@@ -1,23 +1,22 @@
 import { Component } from 'react';
+import { connect } from 'react-redux';
 
-import { BasketContext } from 'BasketContext';
+import { decrement, increment } from 'store/actions';
 
 import styles from './Counter.module.scss';
 
-export class Counter extends Component {
-  static contextType = BasketContext;
-
+class CounterComponent extends Component {
   handleMinusClick = () => {
     const { productId, value } = this.props;
     const newValue = value - 1;
     if (newValue >= 0) {
-      this.context.updateBasket(productId, newValue);
+      // this.context.updateBasket(productId, newValue);
     }
   };
 
   handlePlusClick = () => {
     const { productId, value } = this.props;
-    this.context.updateBasket(productId, value + 1);
+    // this.context.updateBasket(productId, value + 1);
   };
 
   render() {
@@ -25,10 +24,24 @@ export class Counter extends Component {
 
     return (
       <div>
-        <button onClick={this.handleMinusClick}>-</button>
-        <span className={styles.Value}>{value}</span>
-        <button onClick={this.handlePlusClick}>+</button>
+        <button onClick={() => this.props.decrement(5)}>-</button>
+        <span className={styles.Value}>{this.props.count}</span>
+        <button onClick={this.props.increment}>+</button>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  count: state.count,
+});
+
+const mapDispatchToProps = {
+  decrement,
+  increment,
+};
+
+export const Counter = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CounterComponent);

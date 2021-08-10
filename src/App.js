@@ -1,10 +1,11 @@
 import { useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 import { products } from 'api/products.json';
 import ProductList from 'components/ProductList';
 import { Reviews } from 'components/Reviews';
-import { BasketContext } from './BasketContext';
+import { store } from 'store';
 
 const AsyncDeliveryList = lazy(() => import('components/DeliveryList'));
 
@@ -48,7 +49,7 @@ const App = () => {
     });
 
   return (
-    <BasketContext.Provider value={{ basket, updateBasket }}>
+    <Provider store={store}>
       <BrowserRouter>
         <header>
           <ul>
@@ -127,7 +128,7 @@ const App = () => {
           />
         </Switch>
       </BrowserRouter>
-    </BasketContext.Provider>
+    </Provider>
   );
 };
 
