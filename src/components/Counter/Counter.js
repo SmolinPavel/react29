@@ -1,19 +1,23 @@
 import { Component } from 'react';
 
+import { BasketContext } from 'BasketContext';
+
 import styles from './Counter.module.scss';
 
 export class Counter extends Component {
+  static contextType = BasketContext;
+
   handleMinusClick = () => {
-    const { productId, updateBasket, value } = this.props;
+    const { productId, value } = this.props;
     const newValue = value - 1;
     if (newValue >= 0) {
-      updateBasket(productId, newValue);
+      this.context.updateBasket(productId, newValue);
     }
   };
 
   handlePlusClick = () => {
-    const { productId, updateBasket, value } = this.props;
-    updateBasket(productId, value + 1);
+    const { productId, value } = this.props;
+    this.context.updateBasket(productId, value + 1);
   };
 
   render() {

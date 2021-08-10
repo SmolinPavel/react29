@@ -4,18 +4,14 @@ import { ProductCard } from 'components/ProductCard';
 
 import styles from './ProductList.module.scss';
 
-const ProductList = ({ children, updateBasket, basket, products }) => {
+const ProductList = ({ children, products }) => {
   return (
     <div>
       {children}
       <ul className={styles.ProductList}>
         {products.map((product) => (
           <li key={product.id}>
-            <ProductCard
-              updateBasket={updateBasket}
-              basket={basket}
-              product={product}
-            />
+            <ProductCard product={product} />
           </li>
         ))}
       </ul>
@@ -32,7 +28,6 @@ ProductList.propTypes = {
     }),
   ),
   priceColor: PropTypes.string,
-  updateBasket: PropTypes.func.isRequired,
 };
 
 ProductList.defaultProps = {

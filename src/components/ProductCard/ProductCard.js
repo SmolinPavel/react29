@@ -1,8 +1,10 @@
+import { useContext } from 'react';
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Button } from 'components/Button';
 import { Counter } from 'components/Counter';
+import { BasketContext } from 'BasketContext';
 
 const useStyles = makeStyles({
   root: {
@@ -18,8 +20,10 @@ const useStyles = makeStyles({
 
 // { 1: 0, 2: 0, ... }
 
-export const ProductCard = ({ basket, product, updateBasket }) => {
+export const ProductCard = ({ product }) => {
   const classes = useStyles();
+  const { basket } = useContext(BasketContext);
+
   return (
     <Card className={classes.root}>
       <h3>{product.name}</h3>
@@ -27,11 +31,7 @@ export const ProductCard = ({ basket, product, updateBasket }) => {
       <div>
         Price: <b>{product.price}$</b>
       </div>
-      <Counter
-        productId={product.id}
-        updateBasket={updateBasket}
-        value={basket[product.id]}
-      />
+      <Counter productId={product.id} value={basket[product?.id]} />
       <Button action={() => alert('Clicked')} primary letterSpacing="9px">
         Buy
       </Button>
