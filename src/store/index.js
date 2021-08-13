@@ -1,24 +1,12 @@
-import { createStore } from 'redux';
+import { combineReducers } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 
-const initialValue = {
-  count: 15,
-  users: [
-    {
-      id: 1,
-      name: 'Pavel',
-    },
-  ],
-};
+import { counterReducer } from './counter';
 
-const reducer = (state = initialValue, action) => {
-  switch (action.type) {
-    case 'INCREMENT':
-      return { ...state, count: state.count + 1 };
-    case 'DECREMENT':
-      return { ...state, count: state.count - 1 };
-    default:
-      return state;
-  }
-};
+const rootReducer = combineReducers({
+  counter: counterReducer,
+});
 
-export const store = createStore(reducer);
+export const store = configureStore({
+  reducer: rootReducer,
+});

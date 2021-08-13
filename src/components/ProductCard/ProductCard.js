@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button } from 'components/Button';
 import { Counter } from 'components/Counter';
 import { BasketContext } from 'BasketContext';
-import { increment } from 'store/actions';
+import { increment } from 'store/counter';
 
 const useStyles = makeStyles({
   root: {
@@ -26,8 +26,8 @@ export const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const basket = {};
-  const count = useSelector((state) => state.count);
-  const users = useSelector((state) => state.users);
+  const count = useSelector((state) => state.counter.count);
+  const users = useSelector((state) => state.counter.users);
   console.log(users);
   // const { basket } = useContext(BasketContext);
 

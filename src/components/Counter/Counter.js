@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { decrement, increment } from 'store/actions';
+import { decrement, increment } from 'store/counter';
 
 import styles from './Counter.module.scss';
 
@@ -33,7 +33,7 @@ class CounterComponent extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  count: state.count,
+  count: state.counter.count,
 });
 
 const mapDispatchToProps = {
