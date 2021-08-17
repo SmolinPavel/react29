@@ -28,7 +28,6 @@ export const ProductCard = ({ product }) => {
   const basket = {};
   const count = useSelector((state) => state.counter.count);
   const users = useSelector((state) => state.counter.users);
-  console.log(users);
   // const { basket } = useContext(BasketContext);
 
   return (
