@@ -1,11 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { fetchDeliveryTeam } from 'store/users';
+import { fetchDeliveryTeam, selectCleUsers, selectUsers } from 'store/users';
 
 const DeliveryList = () => {
   const dispatch = useDispatch();
-  const { users, loading, error } = useSelector((state) => state.users);
+  const { loading, error } = useSelector(selectUsers);
+  const users = useSelector(selectCleUsers);
+
+  console.log('RENDER!!!', users);
 
   return (
     <div>

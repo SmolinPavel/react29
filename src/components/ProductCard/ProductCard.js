@@ -1,11 +1,11 @@
-import { useContext } from 'react';
+// import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Button } from 'components/Button';
 import { Counter } from 'components/Counter';
-import { BasketContext } from 'BasketContext';
+// import { BasketContext } from 'BasketContext';
 import { increment } from 'store/counter';
 
 const useStyles = makeStyles({
@@ -27,7 +27,7 @@ export const ProductCard = ({ product }) => {
   const classes = useStyles();
   const basket = {};
   const count = useSelector((state) => state.counter.count);
-  const users = useSelector((state) => state.counter.users);
+  // const users = useSelector((state) => state.counter.users);
   // const { basket } = useContext(BasketContext);
 
   return (

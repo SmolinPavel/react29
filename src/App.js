@@ -29,14 +29,14 @@ const ROUTES = {
 const App = () => {
   const [open, setOpen] = useState(true);
   const [search, setSearch] = useState('');
-  const [basket, setBasket] = useState(initialBasket);
+  const [basket] = useState(initialBasket);
 
   // { 1: 0, 2: 0, 3: 0, 4: 0 }
 
   const handleChange = (event) => setSearch(event.target.value);
 
-  const updateBasket = (productId, newValue) =>
-    setBasket((prevBasket) => ({ ...prevBasket, [productId]: newValue }));
+  // const updateBasket = (productId, newValue) =>
+  //   setBasket((prevBasket) => ({ ...prevBasket, [productId]: newValue }));
 
   const filteredProducts = products.filter((product) => {
     return product.name.toLowerCase().includes(search.toLowerCase());
