@@ -38,8 +38,8 @@ class CounterComponent extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  count: selectCount(state),
+const mapStateToProps = (state, props) => ({
+  count: selectCount(state, props.productId),
   discount: selectDiscount(state),
 });
 

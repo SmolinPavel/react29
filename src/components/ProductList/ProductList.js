@@ -1,10 +1,18 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { ProductCard } from 'components/ProductCard';
+import { increment } from 'store/counter';
 
 import styles from './ProductList.module.scss';
 
 const ProductList = ({ children, products }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(increment());
+  }, [dispatch]);
+
   return (
     <div>
       {children}

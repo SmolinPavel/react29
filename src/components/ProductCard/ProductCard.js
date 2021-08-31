@@ -27,8 +27,6 @@ export const ProductCard = ({ product }) => {
   const classes = useStyles();
   const basket = {};
   const count = useSelector((state) => state.counter.count);
-  // const users = useSelector((state) => state.counter.users);
-  // const { basket } = useContext(BasketContext);
 
   return (
     <Card className={classes.root}>

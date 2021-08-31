@@ -5,7 +5,9 @@ import { Provider } from 'react-redux';
 import { products } from 'api/products.json';
 import ProductList from 'components/ProductList';
 import { Reviews } from 'components/Reviews';
+import { UserProvider } from 'contexts';
 import { store } from 'store';
+import { NewUsers } from 'components/NewUsers';
 
 const AsyncDeliveryList = lazy(() => import('components/DeliveryList'));
 
@@ -31,8 +33,6 @@ const App = () => {
   const [search, setSearch] = useState('');
   const [basket] = useState(initialBasket);
 
-  // { 1: 0, 2: 0, 3: 0, 4: 0 }
-
   const handleChange = (event) => setSearch(event.target.value);
 
   // const updateBasket = (productId, newValue) =>
@@ -49,86 +49,89 @@ const App = () => {
     });
 
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <header>
-          <ul>
-            <li>
-              <NavLink
-                exact
-                activeStyle={{
-                  fontWeight: 'bold',
-                  color: 'tomato',
-                }}
-                to={ROUTES.HOME}
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                activeStyle={{
-                  fontWeight: 'bold',
-                  color: 'tomato',
-                }}
-                to={ROUTES.ABOUT}
-              >
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                activeStyle={{
-                  fontWeight: 'bold',
-                  color: 'tomato',
-                }}
-                to={ROUTES.REVIEWS}
-              >
-                Reviews
-              </NavLink>
-            </li>
-          </ul>
-        </header>
-        <Switch>
-          <Route path={ROUTES.ABOUT} component={DeliveryList} />
-          <Route path={ROUTES.REVIEWS}>
-            {() => (
-              <>
-                <div>
-                  <button onClick={() => setOpen((prevOpen) => !prevOpen)}>
-                    Toggle reviews
-                  </button>
-                </div>
-                {open && <Reviews />}
-              </>
-            )}
-          </Route>
-          <Route
-            path={ROUTES.HOME}
-            exact
-            render={() => (
-              <div className="App">
-                <div style={{ padding: '30px 10px 10px' }}>
-                  <input
-                    style={{ width: '400px' }}
-                    value={search}
-                    onChange={handleChange}
-                    placeholder="Напишите товар, который Вы ищите"
-                  />
-                </div>
-                {basketMessages.length > 0 && (
-                  <h3>Baша корзина: {basketMessages.join(', ')}</h3>
-                )}
+    <UserProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <header>
+            <ul>
+              <li>
+                <NavLink
+                  exact
+                  activeStyle={{
+                    fontWeight: 'bold',
+                    color: 'tomato',
+                  }}
+                  to={ROUTES.HOME}
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  activeStyle={{
+                    fontWeight: 'bold',
+                    color: 'tomato',
+                  }}
+                  to={ROUTES.ABOUT}
+                >
+                  About
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  activeStyle={{
+                    fontWeight: 'bold',
+                    color: 'tomato',
+                  }}
+                  to={ROUTES.REVIEWS}
+                >
+                  Reviews
+                </NavLink>
+              </li>
+            </ul>
+          </header>
+          <Switch>
+            <Route path={ROUTES.ABOUT} component={DeliveryList} />
+            <Route path={ROUTES.REVIEWS}>
+              {() => (
+                <>
+                  <div>
+                    <button onClick={() => setOpen((prevOpen) => !prevOpen)}>
+                      Toggle reviews
+                    </button>
+                  </div>
+                  {open && <Reviews />}
+                </>
+              )}
+            </Route>
+            <Route
+              path={ROUTES.HOME}
+              exact
+              render={() => (
+                <div className="App">
+                  <NewUsers />
+                  <div style={{ padding: '30px 10px 10px' }}>
+                    <input
+                      style={{ width: '400px' }}
+                      value={search}
+                      onChange={handleChange}
+                      placeholder="Напишите товар, который Вы ищите"
+                    />
+                  </div>
+                  {basketMessages.length > 0 && (
+                    <h3>Baша корзина: {basketMessages.join(', ')}</h3>
+                  )}
 
-                <ProductList priceColor="teal" products={filteredProducts}>
-                  <h2>Дорогая подборка</h2>
-                </ProductList>
-              </div>
-            )}
-          />
-        </Switch>
-      </BrowserRouter>
-    </Provider>
+                  <ProductList priceColor="teal" products={filteredProducts}>
+                    <h2>Дорогая подборка</h2>
+                  </ProductList>
+                </div>
+              )}
+            />
+          </Switch>
+        </BrowserRouter>
+      </Provider>
+    </UserProvider>
   );
 };
 
