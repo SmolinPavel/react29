@@ -8,8 +8,6 @@ const DeliveryList = () => {
   const { loading, error } = useSelector(selectUsers);
   const users = useSelector(selectCleUsers);
 
-  console.log('RENDER!!!', users);
-
   return (
     <div>
       <h3>Our delivery team</h3>

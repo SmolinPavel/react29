@@ -1,10 +1,14 @@
 import { useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import jwt_decode from 'jwt-decode';
 
 import { products } from 'api/products.json';
 import ProductList from 'components/ProductList';
+import { Login } from 'components/Login';
+import { Logout } from 'components/Logout';
 import { Reviews } from 'components/Reviews';
+import { PrivateRoute } from 'components/PrivateRoute';
 import { UserProvider } from 'contexts';
 import { store } from 'store';
 import { NewUsers } from 'components/NewUsers';
@@ -26,6 +30,7 @@ const ROUTES = {
   HOME: '/',
   ABOUT: '/about',
   REVIEWS: '/reviews',
+  LOGIN: '/login',
 };
 
 const App = () => {
@@ -48,11 +53,18 @@ const App = () => {
       return `${product.name}: ${basket[product.id]} шт.`;
     });
 
+  const token = localStorage.getItem('token');
+  let name = '';
+  if (token) {
+    name = jwt_decode(token).name;
+  }
+
   return (
     <UserProvider>
       <Provider store={store}>
         <BrowserRouter>
           <header>
+            {name && <h1>Hello {name}</h1>}
             <ul>
               <li>
                 <NavLink
@@ -64,6 +76,17 @@ const App = () => {
                   to={ROUTES.HOME}
                 >
                   Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  activeStyle={{
+                    fontWeight: 'bold',
+                    color: 'tomato',
+                  }}
+                  to={ROUTES.LOGIN}
+                >
+                  Login
                 </NavLink>
               </li>
               <li>
@@ -89,9 +112,11 @@ const App = () => {
                 </NavLink>
               </li>
             </ul>
+            <Logout />
           </header>
           <Switch>
-            <Route path={ROUTES.ABOUT} component={DeliveryList} />
+            <PrivateRoute path={ROUTES.ABOUT} component={DeliveryList} />
+            <Route path={ROUTES.LOGIN} component={Login} />
             <Route path={ROUTES.REVIEWS}>
               {() => (
                 <>
@@ -136,3 +161,6 @@ const App = () => {
 };
 
 export default App;
+
+// 1. access token / 5 min /
+// 2. refresh token / 183 days / stored in DB

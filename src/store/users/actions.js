@@ -14,7 +14,11 @@ export const fetchDeliveryTeam = () => async (dispatch, getState) => {
   dispatch(fetchDeliveryTeamRequest());
 
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(API_URL, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
     const data = await response.json();
     dispatch(fetchDeliveryTeamSuccess(data));
   } catch (error) {
