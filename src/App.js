@@ -2,6 +2,7 @@ import { useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import jwt_decode from 'jwt-decode';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 import { products } from 'api/products.json';
 import ProductList from 'components/ProductList';
@@ -14,6 +15,9 @@ import { store } from 'store';
 import { NewUsers } from 'components/NewUsers';
 
 const AsyncDeliveryList = lazy(() => import('components/DeliveryList'));
+
+const GOOGLE_CLIENT_ID =
+  '628159500539-h8itj4fhgl25oq7s47mmhauhhepuds30.apps.googleusercontent.com';
 
 const DeliveryList = () => (
   <Suspense fallback={<div>Loading...</div>}>
@@ -34,6 +38,7 @@ const ROUTES = {
 };
 
 const App = () => {
+  const [user, setUser] = useState({});
   const [open, setOpen] = useState(true);
   const [search, setSearch] = useState('');
   const [basket] = useState(initialBasket);
@@ -53,18 +58,35 @@ const App = () => {
       return `${product.name}: ${basket[product.id]} шт.`;
     });
 
-  const token = localStorage.getItem('token');
-  let name = '';
-  if (token) {
-    name = jwt_decode(token).name;
-  }
+  const handleSuccess = (data) => {
+    console.log(data);
+    setUser(data.profileObj);
+  };
+
+  const handleFailure = () => {};
 
   return (
     <UserProvider>
       <Provider store={store}>
         <BrowserRouter>
           <header>
-            {name && <h1>Hello {name}</h1>}
+            <GoogleLogin
+              clientId={GOOGLE_CLIENT_ID}
+              onSuccess={handleSuccess}
+              onFailure={handleFailure}
+              cookiePolicy={'single_host_origin'}
+            />
+            <GoogleLogout clientId={GOOGLE_CLIENT_ID} />
+
+            {user.imageUrl && (
+              <div>
+                <img
+                  style={{ borderRadius: '50%' }}
+                  src={user.imageUrl}
+                  alt="avatar"
+                />
+              </div>
+            )}
             <ul>
               <li>
                 <NavLink
